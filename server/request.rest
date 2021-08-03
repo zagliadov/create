@@ -1,0 +1,38 @@
+POST http://localhost:5000/api/auth/registration
+Content-Type: application/json
+
+{
+    "firstname": "Ivan",
+    "lastname": "Ivanov",
+    "email": "daniilzahliadow@gmail.com",
+    "password": "111"
+}
+###
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "portal.sid.grand2@gmail.com",
+    "password": "000"
+}
+###
+POST http://localhost:5000/api/auth/forgotpassword
+
+###
+PUT http://localhost:5000/api/auth/resetpassword/1234
+
+###
+GET http://localhost:5000/api/private
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZmU4Njk3NTc1OTFjNGU3ZTNlMGE2ZCIsImlhdCI6MTYyNzMwNTI0MiwiZXhwIjoxNjI3MzA1ODQyfQ.4lozF6eh20TdQ02LDYtG_xtTVtpAWH2xhs6YySfDiZI
+
+###
+GET http://localhost:5000/api/users
+
+###
+POST http://localhost:5000/api/user
+
+Content-Type: application/json
+
+{
+    "id": "60fe8e899c986e56f0509cad"
+}

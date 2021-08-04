@@ -36,7 +36,7 @@ export const removePicture = createAsyncThunk(
     async (data) => {
 
         try {
-            return await axios.delete('http://localhost:5000/api/products/removepicture', {data})
+            return await axios.delete('http://localhost:5000/api/products/removepicture', { data })
                 .then(response => response.data)
                 .then(data => data.updateProduct)
         } catch (error) {
@@ -49,10 +49,10 @@ export const updateElement = createAsyncThunk(
     'products/updateElement',
     async (data) => {
         try {
-            return await axios.put('http://localhost:5000/api/products/updateelement', {data})
-            .then(response => response.data)
-            .then(data => data.updateProduct)
-         
+            return await axios.put('http://localhost:5000/api/products/updateelement', { data })
+                .then(response => response.data)
+                .then(data => data.updateProduct)
+
         } catch (error) {
             console.log(error.message);
         }
@@ -64,14 +64,39 @@ export const getAllProducts = createAsyncThunk(
     async () => {
         try {
             return await axios.get('http://localhost:5000/api/products')
-            .then(response => response.data)
-            .then(data => data.product)
+                .then(response => response.data)
+                .then(data => data.product)
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+)
+export const getOneProduct = createAsyncThunk(
+    'product/getOneProduct',
+    async (id) => {
+        try {
+            return await axios.get(`http://localhost:5000/api/product/${id}`)
+                .then(response => response.data)
+                .then(data => data.product[0])
         } catch (error) {
             console.log(error.message)
         }
     }
 )
 
+export const removeProduct = createAsyncThunk(
+    'product/removeProduct',
+    async (id) => {
+        console.log(id)
+        try {
+            return await axios.delete(`http://localhost:5000/api/product/remove/${id}`)
+                .then(response => response.data)
+                .then(data => console.log(data))
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+)
 
 
 
@@ -122,6 +147,20 @@ const productSlice = createSlice({
         [getAllProducts.fulfilled]: (state, { payload }) => {
             state.status = 'resolved';
             state.products = payload;
+        },//Получены данные 
+        [getOneProduct.pending]: (state, action) => {
+            state.status = 'loading';
+        },
+        [getOneProduct.fulfilled]: (state, { payload }) => {
+            state.status = 'resolved';
+            state.product = payload;
+        },//Получены данные 
+        [removeProduct.pending]: (state, action) => {
+            state.status = 'loading';
+        },
+        [removeProduct.fulfilled]: (state, { payload }) => {
+            state.status = 'resolved';
+            //state.products = payload;
         },//Получены данные 
     }
 })

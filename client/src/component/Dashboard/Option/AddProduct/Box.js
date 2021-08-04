@@ -4,13 +4,14 @@ import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({
     changeBox: {
+        border: '1px solid black',
         padding: '10px',
     },
     change: {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        maxWidth: '400px',
+        // maxWidth: '400px',
         padding: '10px',
     },
     pencil: {
@@ -20,10 +21,11 @@ const useStyles = makeStyles(() => ({
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        maxWidth: '400px',
+        // maxWidth: '400px',
     },
     input: {
         outline: 'none',
+        width: '90%',
         backgroundColor: 'transparent',
         border: 'none',
         borderBottom: '1px solid silver',

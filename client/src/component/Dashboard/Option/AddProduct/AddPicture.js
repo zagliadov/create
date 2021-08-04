@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getProduct, removePicture, uploadPicture, updateElement } from '../../../../store/productsSlice';
 import { Box } from './Box';
 import { useHistory } from 'react-router-dom';
+import { AddPictureOption } from './AddPictureOption';
 
 const useStyles = makeStyles(() => ({
     main: { display: 'flex', },
@@ -52,6 +53,12 @@ const useStyles = makeStyles(() => ({
     thirdImage: { maxWidth: '100%', minHeight: '200px', maxHeight: '300px', },
     bottomFile: { display: 'flex', },
     first: { display: 'none' }, second: { display: 'none' }, third: { display: 'none' },
+    add__picture: {
+        display: 'flex',
+        border: '1px solid red',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 }))
 
 export const AddPicture = () => {
@@ -132,63 +139,7 @@ export const AddPicture = () => {
         <Grid item xs={12} className={classes.root}>
             <Typography variant='h2'>Product card</Typography>
             <Grid item xs={12} className={classes.main}>
-                <Grid item xs={6} className={classes.left}>
-                    <button onClick={() => saveCard()}>Save</button>
-                    {(product?.picture?.length > 0) ?
-                        <Grid item xs={12} className={classes.imgParent}>
-                            <img src={product?.picture[0]} alt={product?.brand} className={classes.firstImage} />
-                            <button className={classes.removeImg}
-                                onClick={() => removeItem(product?.picture[0], product._id)}
-                            >
-                                <i className="fa fa-times" aria-hidden="true"></i>
-                            </button>
-                        </Grid>
-                        :
-                        <Grid item xs={12} className={classes.firstFile}>
-                            <label htmlFor='first'>+</label>
-                            <input type='file' id="first" className={classes.first}
-                                onChange={(e) => fileUpload(e)} />
-                        </Grid>
-                    }
-
-                    <Grid item xs={12} className={classes.bottomFile}>
-                        {(product?.picture?.length > 1) ?
-                            <Grid item xs={6} className={classes.imgParent}>
-                                <img src={product?.picture[1]} alt={product?.brand} className={classes.secondImage} />
-                                <button className={classes.removeImg}
-                                    onClick={() => removeItem(product?.picture[1], product._id)}
-                                >
-                                    <i className="fa fa-times" aria-hidden="true"></i>
-                                </button>
-                            </Grid>
-                            :
-                            <Grid item xs={6} className={classes.secondFile}>
-                                <label htmlFor='second'>+</label>
-                                <input type='file' id="second" className={classes.second}
-                                    onChange={(e) => fileUpload(e)} />
-                            </Grid>
-                        }
-                        {(product?.picture?.length > 2) ?
-                            <Grid item xs={6} className={classes.imgParent}>
-                                <img src={product?.picture[2]} alt={product?.brand} className={classes.thirdImage} />
-                                <button className={classes.removeImg}
-                                    onClick={() => removeItem(product?.picture[2], product._id)}
-                                >
-                                    <i className="fa fa-times" aria-hidden="true"></i>
-                                </button>
-                            </Grid>
-
-                            :
-                            <Grid item xs={6} className={classes.thirdFile}>
-                                <label htmlFor='third'>+</label>
-                                <input type='file' id="third" className={classes.third}
-                                    onChange={(e) => fileUpload(e)} />
-                            </Grid>
-                        }
-
-                    </Grid>
-                </Grid>
-                <Grid item xs={6} className={classes.right}>
+                <Grid item xs={12} className={classes.right}>
                     {/* ************************************* */}
                     <Box
                         variant='h5'
@@ -357,9 +308,13 @@ export const AddPicture = () => {
                         dispatch={dispatch}
                         updateElement={updateElement}
                     />
-
                 </Grid>
+
             </Grid>
+            <Grid item xs={12} className={classes.add__picture}>
+                <AddPictureOption product={product} uploadPicture={uploadPicture} removePicture={removePicture} />
+            </Grid>
+
         </Grid>
     );
 }

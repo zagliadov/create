@@ -1,29 +1,23 @@
 import { Grid, Typography } from '@material-ui/core';
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { findUser } from '../../store/userSlice';
-import { makeStyles } from '@material-ui/core';
+import classes from './home.module.sass';
+import { getAllProducts } from '../../store/productsSlice';
+import { Card } from './Card';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-        justifyContent: 'center',
-    },
-    something: {
-        display: 'flex',
-        justifyContent: 'center',
-    }
-}))
 
 
 
 export const Home = () => {
 
-    const classes = useStyles();
     const dispatch = useDispatch();
+    const products = useSelector(state => state.products.products);
     useEffect(() => {
         dispatch(findUser(localStorage.getItem('email')))
+        dispatch(getAllProducts())
     }, [dispatch])
+
 
 
     return (
@@ -40,6 +34,14 @@ export const Home = () => {
                     entirely.
                 </Typography>
             </Grid>
+
+            <Grid item xs={12} className={classes.card__container}>
+                <Card products={products} />
+            </Grid>
+
+
+
+
         </Grid>
 
 

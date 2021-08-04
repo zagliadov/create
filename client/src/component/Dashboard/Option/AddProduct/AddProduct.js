@@ -218,7 +218,7 @@ export const AddProduct = () => {
                         <Grid item xs={10} className={classes.fildName}>
                             <Grid item xs={4} >
                                 <Typography variant='subtitle1' className={classes.label}>
-                                    Пищевые добавки:
+                                    Состав:
                                 </Typography>
                             </Grid>
                             <Grid item xs={8}>

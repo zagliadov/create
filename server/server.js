@@ -14,6 +14,7 @@ app.use('/api/users', require('./routes/users'));
 app.use('/api/user', require('./routes/user'));
 app.use('/api/private', require('./routes/private'));
 app.use('/api/products', require('./routes/products'));
+app.use('/api/product', require('./routes/product'))
 
 
 const server = app.listen(PORT, () => {

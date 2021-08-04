@@ -1,58 +1,24 @@
 import { Grid } from '@material-ui/core';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from './allProducts.module.sass';
 import { Link, Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllProducts } from '../../../../store/productsSlice';
+import { getAllProducts, removeProduct } from '../../../../store/productsSlice';
 import { EditProduct } from './EditProduct';
 
 export const Product = ({ products }) => {
 
     const product = useSelector(state => state.products.product);
+    const [remove, setRemove] = useState(false);
 
-    // const [productName, setProductName] = useState('');
-    // const [productNameOpen, setProductNameOpen] = useState(false);
 
-    // const [brandName, setBrandName] = useState('');
-    // const [brandOpen, setBrandOpen] = useState(false);
-
-    // const [newAge, setNewAge] = useState('');
-    // const [ageOpen, setAgeOpen] = useState('');
-
-    // const [newBreedSize, setNewBreedSize] = useState('');
-    // const [breedSizeOpen, setBreedSizeOpen] = useState(false);
-
-    // const [newComponents, setNewComponents] = useState('');
-    // const [componentsOpen, setComponentsOpen] = useState(false);
-
-    // const [newContent, setNewContent] = useState('');
-    // const [contentOpen, setContentOpen] = useState(false);
-
-    // const [newEnergyValue, setNewEnergyValue] = useState('');
-    // const [energyValueOpen, setEnergyValueOpen] = useState(false);
-
-    // const [newCountry, setNewCountry] = useState('');
-    // const [countryOpen, setCountryOpen] = useState(false);
-
-    // const [newFeedtype, setNewFeedtype] = useState('');
-    // const [feedtypeOpen, setFeedtypeOpen] = useState(false);
-
-    // const [newPettype, setNewPettype] = useState('');
-    // const [pettypeOpen, setPettypeOpen] = useState(false);
-
-    // const [newSupplements, setNewSupplements] = useState('');
-    // const [supplementsOpen, setSupplementsOpen] = useState(false);
-
-    // const [newWeight, setNewWeight] = useState('');
-    // const [weightOpen, setWeightOpen] = useState(false);
 
 
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getAllProducts())
 
-    }, [dispatch, product])
-
+    }, [dispatch, product, remove])
 
 
     return (
@@ -79,6 +45,15 @@ export const Product = ({ products }) => {
                                     <Route path={`/product/${product._id}`} component={EditProduct} />
                                 </Switch>
                             </Grid>
+                            <button className={classes.remove}
+                                onClick={() => {
+                                    setRemove(!remove)
+                                    dispatch(removeProduct(product._id))
+                                }}
+                            >
+                                <i className="fa fa-times" aria-hidden="true"></i>
+                            </button>
+                            
                         </Grid>
                     )
                 })
